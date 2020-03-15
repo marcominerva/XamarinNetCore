@@ -10,7 +10,7 @@ namespace XamarinNetCore
     {
         public App()
         {
-            AppCenter.Start("android={Your UWP App secret here};", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("android={Your Android App secret here};", typeof(Analytics), typeof(Crashes));
 
             InitializeComponent();
             Host.Init();
