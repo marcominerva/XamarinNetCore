@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.ComponentModel;
+using System.Net.Http;
 using Xamarin.Forms;
 using XamarinNetCore.Services;
 
@@ -11,28 +11,33 @@ namespace XamarinNetCore
     {
         private readonly IService service;
         private readonly ILogger<MainPage> logger;
+        private readonly IHttpClientFactory httpClientFactory;
 
-        public MainPage(IService service, ILogger<MainPage> logger)
+        public MainPage(IService service, ILogger<MainPage> logger, IHttpClientFactory httpClientFactory)
         {
             InitializeComponent();
 
             this.service = service;
             this.logger = logger;
+            this.httpClientFactory = httpClientFactory;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             logger.LogInformation("Page appearing");
 
-            try
-            {
-                var a = 0;
-                var b = 5 / a;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Errore durante l'apertura della pagina");
-            }
+            //try
+            //{
+            //    var a = 0;
+            //    var b = 5 / a;
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.LogError(ex, "Error while opening the page");
+            //}
+
+            var client = httpClientFactory.CreateClient("openweathermap");
+            var weather = await client.GetStringAsync("weather?zip=18018,IT&units=metric&APPID={OPENWEATHERMAP_APP_ID}");
 
             base.OnAppearing();
         }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Polly;
 using System;
 using System.Reflection;
 using Xamarin.Essentials;
@@ -49,6 +50,21 @@ namespace XamarinNetCore
         {
             var appSettingsSection = context.Configuration.GetSection(nameof(AppSettings));
             services.Configure<AppSettings>(appSettingsSection);
+
+            services.AddHttpClient("openweathermap", client =>
+            {
+                client.BaseAddress = new Uri("https://api.openweathermap.org/data/2.5/");
+            })
+            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                // The AddTransientHttpErrorPolicy handles errors typical of Http calls:
+                // Network failures (System.Net.Http.HttpRequestException)
+                // HTTP 5XX status codes (server errors)
+                // HTTP 408 status code (request timeout)
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            }));
 
             if (context.HostingEnvironment.IsDevelopment())
             {
