@@ -35,7 +35,7 @@ namespace XamarinNetCore
                         })
                         .ConfigureLogging(logging =>
                         {
-                            logging.AddConsole();
+                            logging.AddDebug();
                         })
                         .Build();
 

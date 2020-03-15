@@ -21,7 +21,7 @@ namespace XamarinNetCore
 
         protected override void OnAppearing()
         {
-            logger.LogInformation("Caricamento della pagina");
+            logger.LogInformation("Page appearing");
             base.OnAppearing();
         }
     }
