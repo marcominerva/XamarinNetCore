@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Reflection;
 using Xamarin.Essentials;
+using XamarinNetCore.Logging;
 using XamarinNetCore.Models;
 using XamarinNetCore.Services;
 
@@ -36,6 +37,7 @@ namespace XamarinNetCore
                         .ConfigureLogging(logging =>
                         {
                             logging.AddDebug();
+                            logging.AddProvider(new AppCenterLoggerProvider());
                         })
                         .Build();
 

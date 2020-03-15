@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.Extensions.DependencyInjection;
 using Xamarin.Forms;
 
 namespace XamarinNetCore
@@ -7,6 +10,8 @@ namespace XamarinNetCore
     {
         public App()
         {
+            AppCenter.Start("android={Your UWP App secret here};", typeof(Analytics), typeof(Crashes));
+
             InitializeComponent();
             Host.Init();
 
