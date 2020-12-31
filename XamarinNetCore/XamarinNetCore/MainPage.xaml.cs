@@ -37,7 +37,13 @@ namespace XamarinNetCore
             //}
 
             var client = httpClientFactory.CreateClient("openweathermap");
-            var weather = await client.GetStringAsync("weather?zip=18018,IT&units=metric&APPID={OPENWEATHERMAP_APP_ID}");
+            var weatherResponse = await client.GetAsync("weather?zip=18018,IT&units=metric&APPID={OPENWEATHERMAP_APP_ID}");
+
+            if (weatherResponse.IsSuccessStatusCode)
+            {
+                var weather = await weatherResponse.Content.ReadAsStringAsync();
+                logger.LogInformation(weather);
+            }
 
             base.OnAppearing();
         }
