@@ -2,8 +2,8 @@
 {
     public class AppSettings
     {
-        public string ServiceUrl { get; set; }
+        public string ServiceUrl { get; init; }
 
-        public int TestValue { get; set; }
+        public int TestValue { get; init; }
     }
 }

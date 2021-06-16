@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Net.Http;
+using Microsoft.Extensions.Logging;
 using Xamarin.Forms;
 using XamarinNetCore.Services;
 
